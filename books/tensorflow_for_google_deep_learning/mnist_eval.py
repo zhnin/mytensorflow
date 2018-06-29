@@ -13,25 +13,30 @@ import mnist_train
 
 EVAL_INTERVAL_SECS = 10
 
+
 def evaluate(mnist):
     with tf.Graph().as_default() as g:
         x = tf.placeholder(tf.float32, (None, mnist_inference.INPUT_NODES), name='x')
         y_ = tf.placeholder(tf.float32, (None, mnist_inference.OUTPUT_NODES), name='y')
-
+        # 验证集
         validate_feed = {x: mnist.validation.images,
                          y_: mnist.validation.labels}
 
+        # 获取暑促的计算图
         y = mnist_inference.inference(x, None)
 
+        # 精确度
         correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
+        # 创建滑动平均类
         variable_average = tf.train.ExponentialMovingAverage(mnist_train.MOVING_AVERAGE_DECAY)
+        # 获取当前变量的字典形式，
         variables_to_restore = variable_average.variables_to_restore()
         saver = tf.train.Saver(variables_to_restore)
-
         while True:
             with tf.Session() as sess:
+                # 获取当前最新的保存文件
                 ckpt = tf.train.get_checkpoint_state(mnist_train.MODEL_SAVE_PATH)
                 if ckpt and ckpt.model_checkpoint_path:
                     saver.restore(sess, ckpt.model_checkpoint_path)
@@ -45,7 +50,7 @@ def evaluate(mnist):
 
 
 def main(argv=None):
-    mnist = input_data.read_data_sets('D:/softfiles/workspace/tensorflow/data/', one_hot=True)
+    mnist = input_data.read_data_sets('D:/softfiles/workspace/data/tensorflow/data/', one_hot=True)
     evaluate(mnist)
 
 

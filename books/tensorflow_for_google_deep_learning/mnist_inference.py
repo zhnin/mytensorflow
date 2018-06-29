@@ -17,6 +17,7 @@ def get_weight_variable(shape, regularizer=None):
     return weights
 
 
+# 定义计算图，regularizere为正则类，这里不对偏执项进行过拟合操作
 def inference(input_tensor, regularizer=None):
     with tf.variable_scope('layer1'):
         weights = get_weight_variable((INPUT_NODES, LAYER1_NODE), regularizer)

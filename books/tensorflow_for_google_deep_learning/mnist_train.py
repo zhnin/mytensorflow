@@ -60,7 +60,7 @@ def train(mnist):
 
 
 def main(argv=None):
-    mnist = input_data.read_data_sets('D:/softfiles/workspace/tensorflow/data/', one_hot=True)
+    mnist = input_data.read_data_sets('D:/softfiles/workspace/data/tensorflow/data/', one_hot=True)
     train(mnist)
 
 
