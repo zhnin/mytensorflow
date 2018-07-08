@@ -1,4 +1,6 @@
 # mytensorflow
+----
 notebook of tensorflow
-
-**实战Google深度学习框架 第二版 郑泽宇**
+- books : 相关书籍笔记
+- examples: tensorflow官方案例练习
+- basic：tensoflow相关知识汇总
