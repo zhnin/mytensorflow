@@ -1,0 +1,6 @@
+.idea/workspace.xml
+basic/.ipynb_checkpoints/keras-checkpoint.ipynb
+*/.ipynb_checkpoints/*
+*-checkpoint.ipynb
+*.pyc
+books/test.ipynb
