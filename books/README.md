@@ -8,3 +8,4 @@
     - 和tensorflow实战有很大的相似性，可以放在一起学习。 
 3. tensorflow_jishujiexiyushijian
     - tensorflow技术解析与实践 李佳璇
+4. keras_docs:实现keras官方文档案例
