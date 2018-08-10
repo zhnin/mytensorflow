@@ -7,6 +7,7 @@ import os
 
 import numpy as np
 from keras.datasets.cifar import load_batch
+from keras.datasets.mnist import load_data
 from keras import backend as K
 
 

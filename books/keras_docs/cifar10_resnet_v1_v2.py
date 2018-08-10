@@ -38,13 +38,6 @@ else:
 
 model_type = 'ResNet%dv%d' % (depth, version)
 
-def get_label(args):
-    import pickle
-    labels = r'D:\softfiles\workspace\data\tensorflow\data\cifar10\cifar-10-batches-py\batches.meta'
-    with open(labels, 'rb') as f:
-        label_list = pickle.load(f, encoding='utf-8')['label_names']
-    return label_list[args]
-
 # get input and preprocess
 (x_train, y_train), (x_test, y_test) = input_data.input_data('cifar10')
 input_shape = x_train.shape[1:]
@@ -65,9 +58,6 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 
 def lr_schedule(epoch):
     """Learning Rate Schedule
-
-    :param epoch: (int)
-    :return: lr (float32)
     """
     lr = 1e-3
     if epoch > 180:
@@ -113,7 +103,6 @@ def resnet_layer(inputs,
             x = Activation(activation)(x)
         x = conv(x)
     return x
-
 
 
 def resnet_v1(input_shape, depth, num_classes=10):
@@ -237,8 +226,8 @@ model.compile(loss='categorical_crossentropy',
 model.summary()
 print(model_type)
 
-save_dir = r'D:\softfiles\workspace\data\tensorflow\model\cifar10\resnet\cifar10_ResNet20v1_model.035.h5'
-model = load_model(save_dir)
+# save_dir = r'D:\softfiles\workspace\data\tensorflow\model\cifar10\resnet\cifar10_ResNet20v1_model.035.h5'
+# model = load_model(save_dir)
 # model.summary()
 save_dir = r'D:\softfiles\workspace\data\tensorflow\model\cifar10\resnet'
 

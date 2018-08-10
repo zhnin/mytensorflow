@@ -7,10 +7,12 @@
 Test loss: 0.024420398353816063
 Test accu: 0.9924
 """
+import os
 import keras
 from keras.layers import Conv2D, Dense, Flatten
 from keras.layers import MaxPooling2D, Dropout
 from keras.models import Sequential
+from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
 import input_data
@@ -50,12 +52,24 @@ model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.summary()
+save_dir = r'D:\softfiles\workspace\data\tensorflow\model\mnist\cnn'
+
+model_name = 'mnist_model.{epoch:03d}.h5'
+if not os.path.isdir(save_dir):
+    os.makedirs(save_dir)
+filepath = os.path.join(save_dir, model_name)
+checkpoint = ModelCheckpoint(filepath=filepath,
+                             monitor='val_acc',
+                             verbose=1,
+                             save_best_only=True)
+
+callbacks = [checkpoint]
 
 model.compile(optimizer=keras.optimizers.Adadelta(),
               loss='categorical_crossentropy',
               metrics=['acc'])
 
-hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test))
+hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test), callbacks=callbacks)
 
 score = model.evaluate(x_test, y_test)
 print('Test loss:', score[0])
